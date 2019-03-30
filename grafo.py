@@ -54,14 +54,13 @@ class Grafo:
 
 	def sao_adjacentes(self,vertice1,vertice2):  
 		bool = 0
-		for aresta in arestas:
+		for aresta in self.arestas:
 			if(vertice1 == aresta[:1] and vertice2 == aresta[2:] ):
 				bool = 1
 		if(bool == 1): 
-			print("Vertices adjacentes")
+			print("Vertices adjacentes") 
 		else: 
 			print("Vertices não adjacentes") 
-
 	def getOrdem(self):
 		print(len(self.vertices)) 
 
@@ -74,25 +73,39 @@ class Grafo:
 	 
 	def add_vetor_vertices(self,str1,str2): 
 		for i in range(ord(str1), ord(str2)):
-			g.add_vertice(Vertice(chr(i))) 
-
+			g.add_vertice(Vertice(chr(i)))  
+			 
+	def get_adjacentes(self,vertice): 
+		adjacentes = []  
+		for aresta in arestas:
+			if(aresta[:1] == vertice): 
+				adjacentes += aresta[2:]
+			else:  
+				if(aresta[2:] == vertice): 
+					adjacentes += aresta[:1]	 
+		print(adjacentes)			 
+				
+		
+		
 g = Grafo()
 # print(str(len(g.vertices)))
 #a = Vertice('A')
 #g.add_vertice(a)
 #g.add_vertice(Vertice('B'))  
 #cria um vetor de vertices de A até D
-g.add_vetor_vertices('A','D') 
+g.add_vetor_vertices('A','F') 
 #cria o vetor de arestas
-# insere tais arestas no grafo
-g.add_vetor_arestas(('A-A', 'A-B', 'A-C'))  
+# insere tais arestas no grafo 
+arestas = ['A-A', 'A-B', 'A-C']
+g.add_vetor_arestas(arestas)  
 #mostra o grafo
 g.print_grafo() 
 # procura o grau de algum vertice no grafo 
 g.get_grau('C')    
 # verifica se dois vertices são adjacentes
-g.sao_adjacentes('C','C')
-
+#g.sao_adjacentes('C','C') 
+# mostra uma lista de vertices adjacentes a este vertice
+g.get_adjacentes('A')
 #g.getOrdem() 
 #g.getVertices()   
  
