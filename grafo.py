@@ -90,7 +90,17 @@ class Grafo:
 		for aresta in arestas:  
 			if(aresta[:1] == vertice): 
 				adjacentes += aresta[2:] 
-		return adjacentes		 
+		return adjacentes		  
+
+	def get_indiretos(self,vertice): 
+		if (vertice not in self.vertices): 
+			print('Vertice nao existe no grafo') 
+			return 
+		adjacentes = []   
+		for aresta in arestas:  
+			if(aresta[2:] == vertice): 
+				adjacentes += aresta[:1] 
+		return adjacentes		  
 
 	def get_grau_saida(self,vertice): 
 		if (vertice not in self.vertices): 
@@ -165,7 +175,24 @@ class Grafo:
 				if(f!= vertice): 
 					adj3 += f 
 		print('O ftd do vertice ['+ vertice + '] é :')			
-		print(adj3)
+		print(adj3) 
+
+	def fti_vertice(self,vertice):  
+		entrada = self.get_grau_entrada(vertice)
+		saida = self.get_grau_saida(vertice) 
+		adj = []  
+		adj = self.get_indiretos(vertice)   
+		adj3 = []  
+		adj3 += adj
+		numadj = len(adj) 
+		for t in adj:   
+			adj2 = [] 
+			adj2 = self.get_indiretos(t) 
+			for f in adj2: 
+				if(f!= vertice): 
+					adj3 += f 
+		print('O fti do vertice ['+ vertice + '] é :')			
+		print(adj3) 
 
 g = Grafo()
 # print(str(len(g.vertices)))
@@ -198,7 +225,8 @@ g.is_arvore()
 ## = conjunto de vertices que se chega a partir 
 ## deste vertice, lembrando que o grafo é digrafo 
 
-g.ftd_vertice('D')
+g.ftd_vertice('A')
+g.fti_vertice('A')
 #g.get_grau_entrada('A')
 #g.get_grau_saida('A')
 #g.get_grau_entrada('A')
