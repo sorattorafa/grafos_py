@@ -93,7 +93,7 @@ class Grafo:
 			else:  
 				if(aresta[2:] == vertice): 
 					adjacentes += aresta[:1]	 
-		print(adjacentes)		 
+		return adjacentes		 
 
 	def get_grau_saida(self,vertice): 
 		if (vertice not in self.vertices): 
@@ -103,7 +103,7 @@ class Grafo:
 		for aresta in arestas: 
 			if(aresta[:1] == vertice): 
 				grau_saida +=1		   
-		print(grau_saida)  
+		return grau_saida  
 
 	def get_grau_entrada(self,vertice): 
 		if (vertice not in self.vertices): 
@@ -113,7 +113,7 @@ class Grafo:
 		for aresta in arestas: 
 			if(aresta[2:] == vertice): 
 				grau_entrada +=1		  
-		print(grau_entrada)  
+		return grau_entrada  
 
 	def is_completo(self):  
 		expoent = len(self.aresta_indices.items()) 
@@ -126,8 +126,22 @@ class Grafo:
 		if(auxiliarzao == expoent): 
 			print('É um grafo completo') 
 		else: 
-			print('Não é um grafo completo')		
-		
+			print('Não é um grafo completo')	 
+
+	def is_conexo(self): 
+		tamanho = len(self.aresta_indices.items()) 
+		auxizin = 0  
+		for v in self.vertices: 
+			if(self.get_grau_saida(v) == 0 and self.get_grau_entrada(v) == 0): 
+				auxizin = 1 
+			if(self.get_grau_saida(v) == 1 and self.get_grau_entrada(v) == 1): 
+				if(v in self.get_adjacentes(v)): 
+					auxizin = 1
+		 
+		if(auxizin == 1): 
+			print('NÃO É um grafo conexo!') 
+		else: 
+			print('É UM GRAFO CONEXO')	
 g = Grafo()
 # print(str(len(g.vertices)))
 a = Vertice('A')
@@ -137,17 +151,18 @@ a = Vertice('A')
 g.add_vetor_vertices('A','D') 
 #cria o vetor de arestas
 # insere tais arestas no grafo 
-arestas = ['A-A', 'A-B','B-B', 'B-A','A-C', 'B-C', 'C-A', 'C-C', 'C,B']
+arestas = ['C-C', 'B-A', 'B-B']
 g.add_vetor_arestas(arestas)  
 #mostra o grafo
 g.print_grafo() 
 # procura o grau de algum vertice no grafo 
-g.get_grau('C')    
+#g.get_grau('C')    
 # verifica se dois vertices são adjacentes
 #g.sao_adjacentes('C','C') 
 # mostra uma lista de vertices adjacentes a este vertice
 #g.get_adjacentes('A')   
-g.is_completo()
+g.is_completo() 
+g.is_conexo() 
 #g.get_grau_entrada('A')
 #g.get_grau_saida('A')
 #g.get_grau_entrada('A')
