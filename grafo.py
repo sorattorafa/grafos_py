@@ -114,6 +114,19 @@ class Grafo:
 			if(aresta[2:] == vertice): 
 				grau_entrada +=1		  
 		print(grau_entrada)  
+
+	def is_completo(self):  
+		expoent = len(self.aresta_indices.items()) 
+		expoent = expoent * expoent 
+		auxiliarzao = 0
+		for v, i in sorted(self.aresta_indices.items()):
+			for j in range(len(self.arestas)):
+				if(self.arestas[i][j] == 1): 
+					auxiliarzao +=1
+		if(auxiliarzao == expoent): 
+			print('É um grafo completo') 
+		else: 
+			print('Não é um grafo completo')		
 		
 g = Grafo()
 # print(str(len(g.vertices)))
@@ -121,10 +134,10 @@ a = Vertice('A')
 #g.add_vertice(a)
 #g.add_vertice(Vertice('B'))  
 #cria um vetor de vertices de A até D
-g.add_vetor_vertices('A','C') 
+g.add_vetor_vertices('A','D') 
 #cria o vetor de arestas
 # insere tais arestas no grafo 
-arestas = ['A-A', 'A-B']
+arestas = ['A-A', 'A-B','B-B', 'B-A','A-C', 'B-C', 'C-A', 'C-C', 'C,B']
 g.add_vetor_arestas(arestas)  
 #mostra o grafo
 g.print_grafo() 
@@ -133,11 +146,11 @@ g.get_grau('C')
 # verifica se dois vertices são adjacentes
 #g.sao_adjacentes('C','C') 
 # mostra uma lista de vertices adjacentes a este vertice
-g.get_adjacentes('A')  
-
-g.get_grau_entrada('A')
-g.get_grau_saida('A')
-g.get_grau_entrada('A')
+#g.get_adjacentes('A')   
+g.is_completo()
+#g.get_grau_entrada('A')
+#g.get_grau_saida('A')
+#g.get_grau_entrada('A')
 #g.getOrdem() 
 #g.getVertices()   
  
