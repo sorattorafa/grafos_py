@@ -89,10 +89,7 @@ class Grafo:
 		adjacentes = []   
 		for aresta in arestas:  
 			if(aresta[:1] == vertice): 
-				adjacentes += aresta[2:]
-			else:  
-				if(aresta[2:] == vertice): 
-					adjacentes += aresta[:1]	 
+				adjacentes += aresta[2:] 
 		return adjacentes		 
 
 	def get_grau_saida(self,vertice): 
@@ -128,7 +125,8 @@ class Grafo:
 		else: 
 			print('Não é um grafo completo')	 
 
-	def is_conexo(self): 
+	def is_conexo(self):  
+		is_conexo = 0
 		tamanho = len(self.aresta_indices.items()) 
 		auxizin = 0  
 		for v in self.vertices: 
@@ -139,19 +137,46 @@ class Grafo:
 					auxizin = 1
 		 
 		if(auxizin == 1): 
-			print('NÃO É um grafo conexo!') 
-		else: 
-			print('É UM GRAFO CONEXO')	
+			is_conexo = 0 
+			return is_conexo
+		else:  
+			is_conexo = 1 
+			return is_conexo
+			 
+	def is_arvore(self): 
+		if(self.is_conexo() == 1): 
+			if(len(self.vertices)-1 == len(arestas)): 
+				print('É arvore')   
+			else: 
+				print('Não é árvore')	
+				  
+	def ftd_vertice(self,vertice):  
+		entrada = self.get_grau_entrada(vertice)
+		saida = self.get_grau_saida(vertice) 
+		adj = []  
+		adj = self.get_adjacentes(vertice)   
+		adj3 = []  
+		adj3 += adj
+		numadj = len(adj) 
+		for t in adj:   
+			adj2 = [] 
+			adj2 = self.get_adjacentes(t) 
+			for f in adj2: 
+				if(f!= vertice): 
+					adj3 += f 
+		print('O ftd do vertice ['+ vertice + '] é :')			
+		print(adj3)
+
 g = Grafo()
 # print(str(len(g.vertices)))
 a = Vertice('A')
 #g.add_vertice(a)
 #g.add_vertice(Vertice('B'))  
 #cria um vetor de vertices de A até D
-g.add_vetor_vertices('A','D') 
+g.add_vetor_vertices('A','E') 
 #cria o vetor de arestas
 # insere tais arestas no grafo 
-arestas = ['C-C', 'B-A', 'B-B']
+arestas = ['A-B', 'B-C', 'B-D', 'D-A']
 g.add_vetor_arestas(arestas)  
 #mostra o grafo
 g.print_grafo() 
@@ -161,8 +186,19 @@ g.print_grafo()
 #g.sao_adjacentes('C','C') 
 # mostra uma lista de vertices adjacentes a este vertice
 #g.get_adjacentes('A')   
+# todos vertices se ligam com todos 
 g.is_completo() 
-g.is_conexo() 
+conexo = g.is_conexo()   
+
+if(conexo == 1): 
+	print('É conexo') 
+g.is_arvore()    
+
+# fecho transitivo direto de um vértice do grafo 
+## = conjunto de vertices que se chega a partir 
+## deste vertice, lembrando que o grafo é digrafo 
+
+g.ftd_vertice('D')
 #g.get_grau_entrada('A')
 #g.get_grau_saida('A')
 #g.get_grau_entrada('A')
