@@ -159,54 +159,46 @@ class Grafo:
 				print('É arvore')   
 			else: 
 				print('Não é árvore')	
-				  
-	def ftd_vertice(self,vertice):  
-		entrada = self.get_grau_entrada(vertice)
-		saida = self.get_grau_saida(vertice) 
-		adj = []  
-		adj = self.get_adjacentes(vertice)   
-		adj3 = []  
-		adj3 += adj
-		numadj = len(adj) 
-		for t in adj:   
-			adj2 = [] 
-			adj2 = self.get_adjacentes(t) 
-			for f in adj2: 
-				if(f!= vertice): 
-					adj3 += f 
-		print('O ftd do vertice ['+ vertice + '] é :')			
-		print(adj3) 
+				
+	def ftd_vertice(self,vertice): 
+		adja = []     
+		ftd = []
+		for v, i in sorted(self.aresta_indices.items()):
+			if(vertice == v ):  
+				for j in range(len(self.arestas)):  
+					if(self.arestas[i][j] == 1):  
+						adja.append(j)	 
+		for i in adja:   
+			for j in range(len(self.arestas)): 
+				if(self.arestas[i][j] == 1): 
+					adja.append(j)
+		auxiliante = 0		  				 
+		for v in self.vertices:   
+			if(auxiliante in adja): 
+				ftd += v		
+			auxiliante += 1 
 
-	def fti_vertice(self,vertice):  
-		entrada = self.get_grau_entrada(vertice)
-		saida = self.get_grau_saida(vertice) 
-		adj = []  
-		adj = self.get_indiretos(vertice)   
-		adj3 = []  
-		adj3 += adj
-		numadj = len(adj) 
-		for t in adj:   
-			adj2 = [] 
-			adj2 = self.get_indiretos(t) 
-			for f in adj2: 
-				if(f!= vertice): 
-					adj3 += f 
-		print('O fti do vertice ['+ vertice + '] é :')			
-		print(adj3) 
+		print('O FTD do vertice ['+vertice+'] é :') 
+		print(ftd) 
+		# LISTA OS INDICES J DE TODOS ADJACENTES AO VERTICE PROCURADO				 	  
+		#print(adja)
+
+# main 
 
 g = Grafo()
 # print(str(len(g.vertices)))
-a = Vertice('A')
+#a = Vertice('A')
 #g.add_vertice(a)
 #g.add_vertice(Vertice('B'))  
-#cria um vetor de vertices de A até D
-g.add_vetor_vertices('A','E') 
+#cria um vetor de vertices de A té D
+g.add_vetor_vertices('A','F')  
+
 #cria o vetor de arestas
 # insere tais arestas no grafo 
-arestas = ['A-B', 'B-C', 'B-D', 'D-A']
+arestas = ['A-B', 'B-C', 'C-D', 'D-E']
 g.add_vetor_arestas(arestas)  
 #mostra o grafo
-g.print_grafo() 
+g.print_grafo()   
 # procura o grau de algum vertice no grafo 
 #g.get_grau('C')    
 # verifica se dois vertices são adjacentes
@@ -214,19 +206,19 @@ g.print_grafo()
 # mostra uma lista de vertices adjacentes a este vertice
 #g.get_adjacentes('A')   
 # todos vertices se ligam com todos 
-g.is_completo() 
-conexo = g.is_conexo()   
+#g.is_completo() 
+#conexo = g.is_conexo()   
 
-if(conexo == 1): 
-	print('É conexo') 
-g.is_arvore()    
+#if(conexo == 1): 
+#	print('É conexo') 
+#g.is_arvore()    
 
 # fecho transitivo direto de um vértice do grafo 
 ## = conjunto de vertices que se chega a partir 
 ## deste vertice, lembrando que o grafo é digrafo 
 
 g.ftd_vertice('A')
-g.fti_vertice('A')
+#g.fti_vertice('A')
 #g.get_grau_entrada('A')
 #g.get_grau_saida('A')
 #g.get_grau_entrada('A')
