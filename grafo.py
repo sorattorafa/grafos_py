@@ -53,7 +53,6 @@ class Grafo:
 			cont += 1
 			if v == vertice: 
 				aux = cont  
-		aux2 = aux  
 		grau = 0 
 		for v in range(len(self.vertices)):
 			grau += self.arestas[aux-1][v]  	  
@@ -137,7 +136,6 @@ class Grafo:
 
 	def is_conexo(self):  
 		is_conexo = 0
-		tamanho = len(self.aresta_indices.items()) 
 		auxizin = 0  
 		for v in self.vertices: 
 			if(self.get_grau_saida(v) == 0 and self.get_grau_entrada(v) == 0): 
@@ -167,21 +165,44 @@ class Grafo:
 			if(vertice == v ):  
 				for j in range(len(self.arestas)):  
 					if(self.arestas[i][j] == 1):  
-						adja.append(j)	 
+						adja.append(j)	  
 		for i in adja:   
 			for j in range(len(self.arestas)): 
 				if(self.arestas[i][j] == 1): 
-					adja.append(j)
+					if(j not in adja): 
+						adja.append(j)		 
+
 		auxiliante = 0		  				 
 		for v in self.vertices:   
 			if(auxiliante in adja): 
-				ftd += v		
+				ftd += v	   
 			auxiliante += 1 
 		print('O FTD do vertice ['+vertice+'] é :') 
 		print(ftd) 
 		# LISTA OS INDICES J DE TODOS ADJACENTES AO VERTICE PROCURADO				 	  
 		#print(adja) 
 		#   
+	
+	def fti_vertice(self,vertice): 
+		adja = []     
+		fti = []
+		for v, i in sorted(self.aresta_indices.items()):
+			if(vertice == v ):  
+				for j in range(len(self.arestas)):  
+					if(self.arestas[j][i] == 1):  
+						adja.append(j)	 
+		for i in adja:   
+			for j in range(len(self.arestas)): 
+				if(self.arestas[j][i] == 1): 
+					if(j not in adja): 
+						adja.append(j)	
+		auxiliante = 0		  				 
+		for v in self.vertices:   
+			if(auxiliante in adja): 
+				fti += v		
+			auxiliante += 1 
+		print('O FTI do vertice ['+vertice+'] é :') 
+		print(fti) 
 
 # main 
 
@@ -195,7 +216,7 @@ g.add_vetor_vertices('A','G')
 
 #cria o vetor de arestas
 # insere tais arestas no grafo 
-arestas = ['A-B', 'B-C', 'C-D', 'D-E', 'E-F']
+arestas = ['A-B', 'B-C', 'C-D', 'D-E', 'E-F','F-E']
 g.add_vetor_arestas(arestas)  
 #mostra o grafo
 g.print_grafo()   
@@ -216,10 +237,12 @@ g.is_arvore()
 # fecho transitivo direto de um vértice do grafo 
 ## = conjunto de vertices que se chega a partir 
 ## deste vertice, lembrando que o grafo é digrafo 
-g.ftd_vertice('E') 
+g.ftd_vertice('A') 
  
-
-
+# fecho transitivo indireto de um vértice do grafo 
+## é o conjunto de vertices que chegam nesse grafo 
+## por algum caminho existente  
+g.fti_vertice('E')
 #g.get_grau_entrada('A')
 #g.get_grau_saida('A')
 #g.get_grau_entrada('A')
