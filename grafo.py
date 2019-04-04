@@ -182,26 +182,6 @@ class Grafo:
 		# LISTA OS INDICES J DE TODOS ADJACENTES AO VERTICE PROCURADO				 	  
 		#print(adja) 
 		#   
-	
-	def fti_vertice(self,vertice): 
-		adja = []     
-		fti = []
-		for v, i in sorted(self.aresta_indices.items()):
-			if(vertice == v ):  
-				for j in range(len(self.arestas)):  
-					if(self.arestas[j][i] == 1):  
-						adja.append(j)	 
-		for i in adja:   
-			for j in range(len(self.arestas)): 
-				if(self.arestas[j][i] == 1): 
-					adja.append(j)
-		auxiliante = 0		  				 
-		for v in self.vertices:   
-			if(auxiliante in adja): 
-				fti += v		
-			auxiliante += 1 
-		print('O FTI do vertice ['+vertice+'] é :') 
-		print(fti) 
 
 # main 
 
@@ -238,11 +218,7 @@ g.is_arvore()
 ## deste vertice, lembrando que o grafo é digrafo 
 g.ftd_vertice('E') 
  
-# feixo transitivo indireto de um vértice do grafo 
-## = conjunto de vertices que chegam nesse vértice 
-## por algum caminho qualquer 
-g.fti_vertice('E') 
-#g.fti_vertice('A') 
+
 
 #g.get_grau_entrada('A')
 #g.get_grau_saida('A')
