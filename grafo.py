@@ -177,11 +177,31 @@ class Grafo:
 			if(auxiliante in adja): 
 				ftd += v		
 			auxiliante += 1 
-
 		print('O FTD do vertice ['+vertice+'] é :') 
 		print(ftd) 
 		# LISTA OS INDICES J DE TODOS ADJACENTES AO VERTICE PROCURADO				 	  
-		#print(adja)
+		#print(adja) 
+		#   
+	
+	def fti_vertice(self,vertice): 
+		adja = []     
+		fti = []
+		for v, i in sorted(self.aresta_indices.items()):
+			if(vertice == v ):  
+				for j in range(len(self.arestas)):  
+					if(self.arestas[j][i] == 1):  
+						adja.append(j)	 
+		for i in adja:   
+			for j in range(len(self.arestas)): 
+				if(self.arestas[j][i] == 1): 
+					adja.append(j)
+		auxiliante = 0		  				 
+		for v in self.vertices:   
+			if(auxiliante in adja): 
+				fti += v		
+			auxiliante += 1 
+		print('O FTI do vertice ['+vertice+'] é :') 
+		print(fti) 
 
 # main 
 
@@ -191,11 +211,11 @@ g = Grafo()
 #g.add_vertice(a)
 #g.add_vertice(Vertice('B'))  
 #cria um vetor de vertices de A té D
-g.add_vetor_vertices('A','F')  
+g.add_vetor_vertices('A','G')  
 
 #cria o vetor de arestas
 # insere tais arestas no grafo 
-arestas = ['A-B', 'B-C', 'C-D', 'D-E']
+arestas = ['A-B', 'B-C', 'C-D', 'D-E', 'E-F']
 g.add_vetor_arestas(arestas)  
 #mostra o grafo
 g.print_grafo()   
@@ -207,17 +227,18 @@ g.print_grafo()
 #g.get_adjacentes('A')   
 # todos vertices se ligam com todos 
 #g.is_completo() 
-#conexo = g.is_conexo()   
+conexo = g.is_conexo()   
 
-#if(conexo == 1): 
-#	print('É conexo') 
-#g.is_arvore()    
+if(conexo == 1): 
+	print('É conexo') 
+g.is_arvore()    
 
 # fecho transitivo direto de um vértice do grafo 
 ## = conjunto de vertices que se chega a partir 
 ## deste vertice, lembrando que o grafo é digrafo 
 
-g.ftd_vertice('A')
+g.fti_vertice('E') 
+g.ftd_vertice('E')
 #g.fti_vertice('A')
 #g.get_grau_entrada('A')
 #g.get_grau_saida('A')
