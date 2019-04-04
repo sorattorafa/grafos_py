@@ -236,10 +236,14 @@ g.is_arvore()
 # fecho transitivo direto de um vértice do grafo 
 ## = conjunto de vertices que se chega a partir 
 ## deste vertice, lembrando que o grafo é digrafo 
-
+g.ftd_vertice('E') 
+ 
+# feixo transitivo indireto de um vértice do grafo 
+## = conjunto de vertices que chegam nesse vértice 
+## por algum caminho qualquer 
 g.fti_vertice('E') 
-g.ftd_vertice('E')
-#g.fti_vertice('A')
+#g.fti_vertice('A') 
+
 #g.get_grau_entrada('A')
 #g.get_grau_saida('A')
 #g.get_grau_entrada('A')
