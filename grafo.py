@@ -6,11 +6,6 @@ class Vertice:
 		self.grau_saida = 0
 	def __repr__(self): 
 		return "{}".format(self.name)	 
-	def grau_entrada(self,n): 
-		self.grau_entrada = n	 
-	def grau_saida(self,n): 
-		self.grau_saida = n	 
-
 class Grafo: 
 	def __init__(self):
 		self.vertices = {}
@@ -125,7 +120,7 @@ class Grafo:
 		expoent = len(self.aresta_indices.items()) 
 		expoent = expoent * expoent 
 		auxiliarzao = 0
-		for v, i in sorted(self.aresta_indices.items()):
+		for i in sorted(self.aresta_indices.items()):
 			for j in range(len(self.arestas)):
 				if(self.arestas[i][j] == 1): 
 					auxiliarzao +=1
