@@ -5,7 +5,7 @@ class Vertice:
 		self.grau_entrada = 0  
 		self.grau_saida = 0
 	def __repr__(self): 
-		return "{}".format(self.name)	 
+		return "{}".format(self.name)
 class Grafo: 
 	def __init__(self):
 		self.vertices = {}
@@ -119,15 +119,15 @@ class Grafo:
 	def is_completo(self):  
 		expoent = len(self.aresta_indices.items()) 
 		expoent = expoent * expoent 
-		auxiliarzao = 0
-		for i in sorted(self.aresta_indices.items()):
-			for j in range(len(self.arestas)):
-				if(self.arestas[i][j] == 1): 
-					auxiliarzao +=1
-		if(auxiliarzao == expoent): 
-			print('É um grafo completo') 
+		auxiliarzao = 0   
+		for v, i in sorted(self.aresta_indices.items()): 
+			for j in range(len(self.arestas)):  
+				if(self.arestas[i][j] == 1):  
+					auxiliarzao += 1  
+		if (auxiliarzao == expoent): 
+			print('O grafo é completo') 
 		else: 
-			print('Não é um grafo completo')	 
+			print('Não é completo')				
 
 	def is_conexo(self):  
 		is_conexo = 0
@@ -175,7 +175,7 @@ class Grafo:
 		print('O FTD do vertice ['+vertice+'] é :') 
 		print(ftd) 
 		# LISTA OS INDICES J DE TODOS ADJACENTES AO VERTICE PROCURADO				 	  
-		#print(adja) 
+		# print(adja) 
 		#   
 	
 	def fti_vertice(self,vertice): 
@@ -207,11 +207,11 @@ g = Grafo()
 #g.add_vertice(a)
 #g.add_vertice(Vertice('B'))  
 #cria um vetor de vertices de A té D
-g.add_vetor_vertices('A','G')  
+g.add_vetor_vertices('A','C')  
 
 #cria o vetor de arestas
 # insere tais arestas no grafo 
-arestas = ['A-B', 'B-C', 'C-D', 'D-E', 'E-F','F-E']
+arestas = ['A-B', 'B-A', 'A-A', 'B-B']
 g.add_vetor_arestas(arestas)  
 #mostra o grafo
 g.print_grafo()   
@@ -222,7 +222,7 @@ g.print_grafo()
 # mostra uma lista de vertices adjacentes a este vertice
 #g.get_adjacentes('A')   
 # todos vertices se ligam com todos 
-#g.is_completo() 
+g.is_completo() 
 conexo = g.is_conexo()   
 
 if(conexo == 1): 
@@ -232,15 +232,15 @@ g.is_arvore()
 # fecho transitivo direto de um vértice do grafo 
 ## = conjunto de vertices que se chega a partir 
 ## deste vertice, lembrando que o grafo é digrafo 
-g.ftd_vertice('A') 
+g.ftd_vertice('B') 
  
 # fecho transitivo indireto de um vértice do grafo 
 ## é o conjunto de vertices que chegam nesse grafo 
 ## por algum caminho existente  
-g.fti_vertice('E')
+g.fti_vertice('B')
 #g.get_grau_entrada('A')
-#g.get_grau_saida('A')
-#g.get_grau_entrada('A')
+g.get_grau_saida('A')
+g.get_grau_entrada('A')
 #g.getOrdem() 
 #g.getVertices()   
  
