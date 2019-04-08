@@ -69,7 +69,7 @@ class Grafo:
 		else: 
 			print("Vertices não adjacentes") 
 	def getOrdem(self):
-		print(len(self.vertices)) 
+		return len(self.vertices) 
 
 	def getVertices(self):  
 		for x in self.vertices: 
@@ -208,7 +208,8 @@ class Grafo:
 	
 ## busca em largura 
 #   
-	def busca_em_largura(self,vertice):  
+	def busca_em_largura(self,vertice):   
+		print(' \n A sequencia de vertices percorridos na busca em largura são na ordem: \n')
 		vertice.mudar_cor('Cinza') 
 		advert = self.get_adjacentes(vertice.name) 
 		listaadjacentes = [] 
@@ -217,11 +218,24 @@ class Grafo:
 				listaadjacentes.append(auxiliar)   
 		for auxiliar in listaadjacentes: 
 			auxiliar.mudar_cor('Cinza')	 
-		vertice.mudar_cor('Preto')  
+		vertice.mudar_cor('Preto')    
+		vertice.get_cor() 
+		tamanho = self.getOrdem() 
+		qtdeblack = 0 
+		while qtdeblack != (tamanho): 
+			listaadjacentes[qtdeblack].mudar_cor('Preto')   
+			listaadjacentes[qtdeblack].get_cor() 
+			listaadjacentes2 = self.get_adjacentes(listaadjacentes[qtdeblack].name)
+			for auxiliar in vetor_auxiliar: 
+				if(auxiliar.name in listaadjacentes2):  
+					listaadjacentes.append(auxiliar)   
+			#print('Os adjacentes de ['+listaadjacentes[qtdeblack].name+'] é :') 
+			#print(listaadjacentes2)		 
+			qtdeblack += 1
 		# primeiro preto e seus adjacentes cinza
-		vertice.get_cor()		 
-		for auxiliar in listaadjacentes: 
-			auxiliar.get_cor()		 
+		#vertice.get_cor()		 
+		#for auxiliar in listaadjacentes: 
+		#	auxiliar.get_cor()		 
 					
 				
 
