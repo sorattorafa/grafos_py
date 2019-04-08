@@ -3,9 +3,15 @@ class Vertice:
 		self.name = n 
 		self.grau = 0  
 		self.grau_entrada = 0  
-		self.grau_saida = 0
+		self.grau_saida = 0 
+		self.cor = 'Branco'
 	def __repr__(self): 
-		return "{}".format(self.name)
+		return "{}".format(self.name) 
+	def get_cor(self): 
+		print('A cor do vertice:['+self.name+'] é '+self.cor)	 
+	def mudar_cor(self,cor):
+		self.cor = cor		 
+
 class Grafo: 
 	def __init__(self):
 		self.vertices = {}
@@ -197,21 +203,66 @@ class Grafo:
 				fti += v		
 			auxiliante += 1 
 		print('O FTI do vertice ['+vertice+'] é :') 
-		print(fti) 
+		print(fti)   
+
+	
+## busca em largura 
+#   
+	def busca_em_largura(self,vertice):  
+		vertice.mudar_cor('Cinza') 
+		advert = self.get_adjacentes(vertice.name) 
+		listaadjacentes = [] 
+		for auxiliar in vetor_auxiliar: 
+			if(auxiliar.name in advert):  
+				listaadjacentes.append(auxiliar)   
+		for auxiliar in listaadjacentes: 
+			auxiliar.mudar_cor('Cinza')	 
+		vertice.mudar_cor('Preto')  
+		# primeiro preto e seus adjacentes cinza
+		vertice.get_cor()		 
+		for auxiliar in listaadjacentes: 
+			auxiliar.get_cor()		 
+					
+				
 
 # main 
 
 g = Grafo()
 # print(str(len(g.vertices)))
-#a = Vertice('A')
-#g.add_vertice(a)
+r = Vertice('R')
+g.add_vertice(r) 
+s = Vertice('S')
+g.add_vertice(s) 
+v = Vertice('V')
+g.add_vertice(v) 
+w = Vertice('W')
+g.add_vertice(w)   
+t = Vertice('T')
+g.add_vertice(t) 
+x = Vertice('X')
+g.add_vertice(x) 
+y = Vertice('Y')
+g.add_vertice(y) 
+u = Vertice('U')
+g.add_vertice(u)   
+
+vetor_auxiliar = [] 
+vetor_auxiliar.append(r) 
+vetor_auxiliar.append(s)
+vetor_auxiliar.append(v) 
+vetor_auxiliar.append(w) 
+vetor_auxiliar.append(t) 
+vetor_auxiliar.append(x)
+vetor_auxiliar.append(u) 
+vetor_auxiliar.append(y) 
+
 #g.add_vertice(Vertice('B'))  
 #cria um vetor de vertices de A té D
-g.add_vetor_vertices('A','C')  
+#g.add_vetor_vertices('A','C')  
 
 #cria o vetor de arestas
 # insere tais arestas no grafo 
-arestas = ['A-B', 'B-A', 'A-A', 'B-B']
+arestas = ['S-R','S-W', 'R-V', 'W-T', 'W-X', 'T-X', 'T-U', 'X-Y', 'U-Y']
 g.add_vetor_arestas(arestas)  
 #mostra o grafo
 g.print_grafo()   
@@ -222,25 +273,29 @@ g.print_grafo()
 # mostra uma lista de vertices adjacentes a este vertice
 #g.get_adjacentes('A')   
 # todos vertices se ligam com todos 
-g.is_completo() 
-conexo = g.is_conexo()   
+#g.is_completo() 
+#conexo = g.is_conexo()   
 
-if(conexo == 1): 
-	print('É conexo') 
-g.is_arvore()    
+#if(conexo == 1): 
+#	print('É conexo') 
+#g.is_arvore()    
 
 # fecho transitivo direto de um vértice do grafo 
 ## = conjunto de vertices que se chega a partir 
 ## deste vertice, lembrando que o grafo é digrafo 
-g.ftd_vertice('B') 
+#g.ftd_vertice('B') 
  
 # fecho transitivo indireto de um vértice do grafo 
 ## é o conjunto de vertices que chegam nesse grafo 
 ## por algum caminho existente  
-g.fti_vertice('B')
+#g.fti_vertice('B')
 #g.get_grau_entrada('A')
-g.get_grau_saida('A')
-g.get_grau_entrada('A')
+#g.get_grau_saida('A')
+#g.get_grau_entrada('A')  
+
 #g.getOrdem() 
 #g.getVertices()   
+  
  
+# busca em largura 
+g.busca_em_largura(s)		
