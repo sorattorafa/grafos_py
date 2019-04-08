@@ -12,5 +12,8 @@
 ## Verificar se o grafo é completo 
 ## Verificar se o grafo é conexo 
 ## Verificar se o grafo é uma árvore 
-## Verifica O FTD e FTI de um vértice qualquer do mapa
+## Verifica O FTD e FTI de um vértice qualquer do mapa 
+# Buscas Implementadas 
+## Busca em Largura 
+Para realizar a busca em largura basta criar a estrutura grafo com vértice e arestas e então chamar a seguinte função que existe dentro dessa classe grafo: g.busca_em_largura(vértice), onde o parâmetro é um vértice qualquer do grafo e o retorno trata-se de uma lista em sequência dos nós visitados durante a busca em largura. 
  
