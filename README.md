@@ -1,6 +1,6 @@
 # grafos_py
  Implementation of graph structures and tools using Python3. 
-# Objects: vertex and graphs 
+# POO (classes): vertices e grafos
 #  Funções do grafo 
 ## Adicionar vértice 
 ## Adicionar aresta  
