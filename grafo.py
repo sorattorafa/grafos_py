@@ -224,21 +224,25 @@ class Grafo:
 		for auxiliar in listaadjacentes: 
 			if(auxiliar.cor == 'Branco'): 
 				auxiliar.predecessor = vertice 
+				print(auxiliar.name) 
 				self.dfs_visit(auxiliar)  
-		vertice.mudar_cor('Preto')					   
+		vertice.mudar_cor('Preto') 
 		self.time += 1
 		vertice.tempo_saida = self.time
 
 ## busca em profundidade 
-	def busca_em_profundidade(self): 
+	def busca_em_profundidade(self):  
+		print('A ordem de nos é :')
 		for v in vetor_auxiliar:  
 			v.mudar_cor('Branco') 
 		self.time = 0	  
 		for v in vetor_auxiliar: 
-			if(v.cor == 'Branco'):  
+			if(v.cor == 'Branco'): 
+				print(v.name)  
 				self.dfs_visit(v)
 ## busca em largura  
-	def busca_em_largura(self,vertice): 
+	def busca_em_largura(self,vertice):  
+		print('A ordem percorrida é')
 		vertice.mudar_cor('Cinza') 
 		sequencia = []     
 		q = []
@@ -253,7 +257,8 @@ class Grafo:
 					if(a.cor == 'Branco'): 
 						a.mudar_cor('Cinza') 
 						q.append(a) 
-						sequencia.append(a) 
+						sequencia.append(a)  
+			print(desempilhado.name)			
 			desempilhado.mudar_cor('Preto')			
 #		while len(sequencia) != len(vetor_auxiliar): 
 
@@ -324,5 +329,5 @@ g.print_grafo()
   
  
 # busca em largura 
-g.busca_em_largura(w)		 
+g.busca_em_largura(u)		 
 g.busca_em_profundidade()
