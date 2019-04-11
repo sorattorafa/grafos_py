@@ -16,4 +16,5 @@
 # Buscas Implementadas 
 ## Busca em Largura 
 Para realizar a busca em largura basta criar a estrutura grafo com vértice e arestas e então chamar a seguinte função que existe dentro dessa classe grafo: g.busca_em_largura(vértice), onde o parâmetro é um vértice qualquer do grafo e o retorno trata-se de uma lista em sequência dos nós visitados durante a busca em largura. 
- 
+## Busca em Profundidade 
+g.busca_em_profundidade()
