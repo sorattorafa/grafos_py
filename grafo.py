@@ -4,7 +4,11 @@ class Vertice:
 		self.grau = 0  
 		self.grau_entrada = 0  
 		self.grau_saida = 0 
-		self.cor = 'Branco'
+		self.tempo_entrada = 0 
+		self.tempo_saida = 0 
+		self.cor = 'Branco' 
+		self.predecessor = None 
+		self.d_inicial = 0
 	def __repr__(self): 
 		return "{}".format(self.name) 
 	def get_cor(self): 
@@ -16,7 +20,8 @@ class Grafo:
 	def __init__(self):
 		self.vertices = {}
 		self.arestas = []
-		self.aresta_indices = {} 
+		self.aresta_indices = {}  
+		self.time = 0
 
 	def add_vertice(self, vertice):
 		if isinstance(vertice, Vertice) and vertice.name not in self.vertices:
@@ -205,78 +210,85 @@ class Grafo:
 		print('O FTI do vertice ['+vertice+'] é :') 
 		print(fti)   
 
-	
-## busca em largura 
-#   
-	def busca_em_largura(self,vertice):   
-		print(' \n A sequencia de vertices percorridos na busca em largura são na ordem: \n')
+	## funcao recursiva para a busca em profundidade	  
+	 
+	def dfs_visit(self,vertice):  
+		self.time += 1   
+		vertice.tempo_entrada = self.time 
 		vertice.mudar_cor('Cinza') 
 		advert = self.get_adjacentes(vertice.name) 
 		listaadjacentes = [] 
 		for auxiliar in vetor_auxiliar: 
 			if(auxiliar.name in advert):  
-				listaadjacentes.append(auxiliar)   
+				listaadjacentes.append(auxiliar) 
 		for auxiliar in listaadjacentes: 
-			auxiliar.mudar_cor('Cinza')	 
-		vertice.mudar_cor('Preto')    
-		vertice.get_cor() 
-		tamanho = self.getOrdem() 
-		qtdeblack = 0 
-		while qtdeblack != (tamanho): 
-			listaadjacentes[qtdeblack].mudar_cor('Preto')   
-			listaadjacentes[qtdeblack].get_cor() 
-			listaadjacentes2 = self.get_adjacentes(listaadjacentes[qtdeblack].name)
-			for auxiliar in vetor_auxiliar: 
-				if(auxiliar.name in listaadjacentes2):  
-					listaadjacentes.append(auxiliar)   
-			#print('Os adjacentes de ['+listaadjacentes[qtdeblack].name+'] é :') 
-			#print(listaadjacentes2)		 
-			qtdeblack += 1
-		# primeiro preto e seus adjacentes cinza
-		#vertice.get_cor()		 
-		#for auxiliar in listaadjacentes: 
-		#	auxiliar.get_cor()		 
-					
-				
+			if(auxiliar.cor == 'Branco'): 
+				auxiliar.predecessor = vertice 
+				self.dfs_visit(auxiliar)  
+		vertice.mudar_cor('Preto')					   
+		self.time += 1
+		vertice.tempo_saida = self.time
 
-# main 
+## busca em profundidade 
+	def busca_em_profundidade(self): 
+		for v in vetor_auxiliar:  
+			v.mudar_cor('Branco') 
+		self.time = 0	  
+		for v in vetor_auxiliar: 
+			if(v.cor == 'Branco'):  
+				self.dfs_visit(v)
+## busca em largura  
+	def busca_em_largura(self,vertice): 
+		vertice.mudar_cor('Cinza') 
+		sequencia = []     
+		q = []
+		sequencia.append(vertice) 
+		q.append(vertice)
+		while len(q) > 0:
+			desempilhado = q[0]		 
+			q.pop(0)  
+			adj2 = self.get_adjacentes(desempilhado.name) 
+			for a in vetor_auxiliar: 
+				if(a.name in adj2): 
+					if(a.cor == 'Branco'): 
+						a.mudar_cor('Cinza') 
+						q.append(a) 
+						sequencia.append(a) 
+			desempilhado.mudar_cor('Preto')			
+#		while len(sequencia) != len(vetor_auxiliar): 
+
+			
+# main  
 
 g = Grafo()
 # print(str(len(g.vertices)))
-r = Vertice('R')
-g.add_vertice(r) 
-s = Vertice('S')
-g.add_vertice(s) 
+u = Vertice('U')
+g.add_vertice(u) 
 v = Vertice('V')
 g.add_vertice(v) 
 w = Vertice('W')
-g.add_vertice(w)   
-t = Vertice('T')
-g.add_vertice(t) 
+g.add_vertice(w) 
 x = Vertice('X')
 g.add_vertice(x) 
 y = Vertice('Y')
 g.add_vertice(y) 
-u = Vertice('U')
-g.add_vertice(u)   
+z = Vertice('Z')
+g.add_vertice(z)   
 
 vetor_auxiliar = [] 
-vetor_auxiliar.append(r) 
-vetor_auxiliar.append(s)
+vetor_auxiliar.append(u)
 vetor_auxiliar.append(v) 
 vetor_auxiliar.append(w) 
-vetor_auxiliar.append(t) 
-vetor_auxiliar.append(x)
-vetor_auxiliar.append(u) 
+vetor_auxiliar.append(x) 
 vetor_auxiliar.append(y) 
-
+vetor_auxiliar.append(z)
 #g.add_vertice(Vertice('B'))  
 #cria um vetor de vertices de A té D
 #g.add_vetor_vertices('A','C')  
 
 #cria o vetor de arestas
 # insere tais arestas no grafo 
-arestas = ['S-R','S-W', 'R-V', 'W-T', 'W-X', 'T-X', 'T-U', 'X-Y', 'U-Y']
+arestas = ['U-V','U-X', 'X-V', 'Y-X', 'W-Y', 'W-Z', 'Z-Z','V-Y']
 g.add_vetor_arestas(arestas)  
 #mostra o grafo
 g.print_grafo()   
@@ -312,4 +324,5 @@ g.print_grafo()
   
  
 # busca em largura 
-g.busca_em_largura(s)		
+g.busca_em_largura(w)		 
+g.busca_em_profundidade()
