@@ -98,4 +98,9 @@ g.add_vetor_arestas(arestas)
 #	v.mudar_cor('Branco')		 
 g.print_grafo()  
 
-g.busca_em_profundidade()      
+g.busca_em_profundidade()    
+if(len(g.componentes_separados) > 1): 
+	print('Sistema em Falha')  
+if(len(g.componentes_separados) == 1): 
+	print('Sistema em Conectado')  
+	
