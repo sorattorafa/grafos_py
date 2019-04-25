@@ -24,7 +24,9 @@ class Grafo:
 		self.time = 0 
 		self.vetor_auxiliar = []
 		self.arestasaux = []  
-		self.componentes_separados = []
+		self.componentes_separados = [] 
+		self.ordenacao_topologica = list() 
+		self.eh_arvore = 0 
 	def add_vertice(self, vertice):
 		if isinstance(vertice, Vertice) and vertice.name not in self.vertices:
 			self.vertices[vertice.name] = vertice
@@ -50,21 +52,7 @@ class Grafo:
 			print(v + ' ', end='')
 			for j in range(len(self.arestas)):
 				print(self.arestas[i][j], end='')
-			print(' ') 
-			 
-	def get_grau(self,vertice): 
-		if vertice not in self.vertices: 
-			return 
-		cont = 0  
-		aux = 0 
-		for v in self.vertices:  
-			cont += 1
-			if v == vertice: 
-				aux = cont  
-		grau = 0 
-		for v in range(len(self.vertices)):
-			grau += self.arestas[aux-1][v]  	  
-		print(grau)   
+			print(' ')  
 
 	def sao_adjacentes(self,vertice1,vertice2):  
 		bool = 0
@@ -127,7 +115,17 @@ class Grafo:
 		for aresta in self.arestasaux: 
 			if(aresta[2:] == vertice): 
 				grau_entrada +=1		  
-		return grau_entrada  
+		return grau_entrada    
+
+	def get_grau(self,vertice): 
+		if (vertice not in self.vertices): 
+			print('Vertice nao existe no grafo') 
+			return 
+		grauentrada = self.get_grau_entrada(vertice) 
+		grausaida = self.get_grau_saida(vertice) 
+		grau = grauentrada+grausaida
+		print('O grau do vértice ['+ vertice +'] é igual:') 
+		print(grau)  	 	
 
 	def is_completo(self):  
 		expoent = len(self.aresta_indices.items()) 
@@ -153,9 +151,9 @@ class Grafo:
 			return 1	   				 
 	def is_arvore(self): 
 		if(self.is_conexo() == 1 and len(self.vertices)-1 == len(self.arestasaux)):  
-			print('É arvore')   
+			self.eh_arvore = 1   
 		else: 
-			print('Não é árvore')	
+			self.eh_arvore = 0	
 				
 	def ftd_vertice(self,vertice): 
 		adja = []     
@@ -208,7 +206,7 @@ class Grafo:
 	def dfs_visit(self,vertice):  
 		self.time += 1   
 		vertice.tempo_entrada = self.time 
-		vertice.mudar_cor('Cinza') 
+		vertice.mudar_cor('Cinza')  
 		advert = self.get_adjacentes(vertice.name) 
 		listaadjacentes = [] 
 		for auxiliar in self.vetor_auxiliar: 
@@ -220,6 +218,8 @@ class Grafo:
 #				print(auxiliar.name) 
 				self.dfs_visit(auxiliar)  
 		vertice.mudar_cor('Preto') 
+		if(self.eh_arvore == 1):     
+			self.ordenacao_topologica.insert(0,vertice)
 		self.time += 1
 		vertice.tempo_saida = self.time
 
