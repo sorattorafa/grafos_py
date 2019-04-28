@@ -26,7 +26,9 @@ class Grafo:
 		self.arestasaux = []  
 		self.componentes_separados = [] 
 		self.ordenacao_topologica = list() 
-		self.eh_arvore = 0 
+		self.eh_arvore = 0  
+		self.matriz = []
+
 	def add_vertice(self, vertice):
 		if isinstance(vertice, Vertice) and vertice.name not in self.vertices:
 			self.vertices[vertice.name] = vertice
@@ -52,8 +54,16 @@ class Grafo:
 			print(v + ' ', end='')
 			for j in range(len(self.arestas)):
 				print(self.arestas[i][j], end='')
-			print(' ')  
-
+			print(' ')   
+			
+	def print_matriz(self):
+		for v, i in sorted(self.aresta_indices.items()): 
+			linha = []
+			for j in range(len(self.arestas)):   
+				if(self.arestas[i][j] != ''):
+					linha.append(self.arestas[i][j]) 
+			self.matriz.append(linha)		
+	
 	def sao_adjacentes(self,vertice1,vertice2):  
 		bool = 0
 		for aresta in self.arestas:
@@ -104,7 +114,7 @@ class Grafo:
 		grau_saida = 0 
 		for aresta in self.arestasaux: 
 			if(aresta[:1] == vertice): 
-				grau_saida +=1		   
+				grau_saida +=1 		   
 		return grau_saida  
 
 	def get_grau_entrada(self,vertice): 
@@ -258,4 +268,39 @@ class Grafo:
 						sequencia.append(a)  
 			maiordistancia = desempilhado.d_inicial			
 			desempilhado.mudar_cor('Preto')	 		 
-		return maiordistancia	
+		return maiordistancia	 
+
+	def algoritimo_de_kahn(self): 
+		elementos_ordenados = []	 
+		grauentradazero = []   
+		arestasaux = self.arestasaux
+		for v in self.vetor_auxiliar: 
+			if(self.get_grau_entrada(v.name) == 0): 
+				grauentradazero.append(v)		
+		# mostra quem tem o grau de entrada igual a zero		 
+		#print(grauentradazero)    
+		while len(grauentradazero) != 0: 
+			removido = grauentradazero[0]  
+			grauentradazero.pop(0) 
+			elementos_ordenados.append(removido)  
+			adjacentesm = self.get_adjacentes(removido.name)    
+			adjacentesmm = []
+			for v in self.vetor_auxiliar: 
+				if(v.name in adjacentesm): 
+					adjacentesmm.append(v)   
+			# remover aresta que liga o removido com adjacentesmm 		 
+			for aresta in self.arestasaux: 
+				if(aresta[:1] == removido.name):   
+					arestasaux.remove(aresta)
+			for aresta in self.arestasaux: 
+				if(aresta[:1] == removido.name):   
+					arestasaux.remove(aresta) 
+			
+			# se o grau desse adjacente for igual a zero depois ele entra na lista			  
+			for adj in adjacentesmm: 
+				if(self.get_grau_entrada(adj.name) == 0): 
+					grauentradazero.append(adj)				 
+		if(len(self.arestasaux) != 0): 
+			print('Existe Loop no grafo') 
+		else: 
+			print(elementos_ordenados)				
