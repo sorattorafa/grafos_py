@@ -27,7 +27,7 @@ class Grafo:
 		self.componentes_separados = [] 
 		self.ordenacao_topologica = list() 
 		self.eh_arvore = 0  
-		self.matriz = []
+		self.pilha_scc = []
 
 	def add_vertice(self, vertice):
 		if isinstance(vertice, Vertice) and vertice.name not in self.vertices:
@@ -227,7 +227,9 @@ class Grafo:
 				auxiliar.predecessor = vertice 
 #				print(auxiliar.name) 
 				self.dfs_visit(auxiliar)  
-		vertice.mudar_cor('Preto') 
+		vertice.mudar_cor('Preto')    
+		if(vertice not in self.pilha_scc):
+			self.pilha_scc.append(vertice)
 		if(self.eh_arvore == 1):     
 			self.ordenacao_topologica.insert(0,vertice)
 		self.time += 1
