@@ -293,16 +293,15 @@ class Grafo:
 			# remover aresta que liga o removido com adjacentesmm 		 
 			for aresta in self.arestasaux: 
 				if(aresta[:1] == removido.name):   
-					arestasaux.remove(aresta)
-			for aresta in self.arestasaux: 
-				if(aresta[:1] == removido.name):   
 					arestasaux.remove(aresta) 
-			
+				for aresta in self.arestasaux: 
+					if(aresta[:1] == removido.name):   
+						arestasaux.remove(aresta) 	
 			# se o grau desse adjacente for igual a zero depois ele entra na lista			  
 			for adj in adjacentesmm: 
 				if(self.get_grau_entrada(adj.name) == 0): 
 					grauentradazero.append(adj)				 
 		if(len(self.arestasaux) != 0): 
-			print('Existe Loop no grafo') 
+			print('Existe Loop no grafo')  
 		else: 
 			print(elementos_ordenados)				
