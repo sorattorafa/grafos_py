@@ -33,15 +33,8 @@ g.vetor_auxiliar = vetor_auxiliar
 g.arestasaux = arestas	  
 # adiciona as arestas de fato
 g.add_vetor_arestas(arestas)  
-#mostra o grafo
-#g.print_grafo()    
-#g.get_grau('1')  
 
-
-#g.print_matriz() 
-#matriz = g.matriz 
-#print(matriz)     
-
+# em desenvolvimento, obrigado pela compreensão #	
 ## algoritmo de kosajaru
 #g.busca_em_profundidade() 
 #matriztransposta = np.transpose(g.arestas)  
