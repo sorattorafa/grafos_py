@@ -3,10 +3,10 @@
    
 # POO (classes): vertices e grafos
 #  Funções do grafo 
- Adicionar vértice 
- Adicionar aresta  
- Mostrar grafo 
- Mostrar grau de um vértice (saida e entrada)
+ Adicionar vértice \\
+ Adicionar aresta  //
+ Mostrar grafo \
+ Mostrar grau de um vértice (saida e entrada) /
  verificar se dois vértices são adjacentes 
  Verificar a ordem do grafo 
  Listar os vértices adjacentes de um vértice 
