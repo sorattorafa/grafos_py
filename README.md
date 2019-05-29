@@ -1,5 +1,8 @@
 # grafos_py
- Implementation of graph structures and tools using Python3.    
+ Implementation of graph structures and tools using Python3.   
+ 
+# Execução: 
+Para executar e testas as funções de grafos implementadas você deve editar o arquivo de entrada para simular os vértices e arestas do grafo e utilizar as funções importadas do pacote 'grafo.py' implementado em um arquivo separado.
    
 # POO (classes): vertices e grafos
 #  Funções do grafo 
