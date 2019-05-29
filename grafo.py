@@ -271,7 +271,18 @@ class Grafo:
 			maiordistancia = desempilhado.d_inicial			
 			desempilhado.mudar_cor('Preto')	 		 
 		return maiordistancia	 
-
+ 
+	
+	def strong_connected_components(self): 
+		print('Os componentes que possuem um laço forte de conexão são :')
+		for v in self.vetor_auxiliar:  
+			scc_components = []	
+			for vv in self.vetor_auxiliar: 
+				if ( self.fti_vertice(v.name) == self.fti_vertice(vv.name) and self.ftd_vertice(v.name) == self.ftd_vertice(vv.name) ): 
+					if( v not in scc_components): 
+						scc_components.append(vv) 
+			print(scc_components)    
+			
 	def algoritimo_de_kahn(self): 
 		elementos_ordenados = []	 
 		grauentradazero = []   
@@ -304,4 +315,4 @@ class Grafo:
 		if(len(self.arestasaux) != 0): 
 			print('Existe Loop no grafo')  
 		else: 
-			print(elementos_ordenados)				
+			print(elementos_ordenados)	 
